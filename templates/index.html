@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Weather Application</h1>
+        <form method="POST">
+            <label for="city">Enter City:</label>
+            <input type="text" id="city" name="city" required>
+            <button type="submit">Get Weather</button>
+        </form>
+
+        <div class="weather-info">
+            {% if weather_info %}
+                <h2>Weather in {{ weather_info.city }}</h2>
+                <p>Temperature: {{ weather_info.temperature }}°C</p>
+                <p>Pressure: {{ weather_info.pressure }} hPa</p>
+                <p>Humidity: {{ weather_info.humidity }}%</p>
+                <p>Description: {{ weather_info.description }}</p>
+                <img src="http://openweathermap.org/img/wn/{{ weather_info.icon }}@2x.png" alt="Weather Icon">
+            {% elif weather_info is not none %}
+                <p class="error">City not found! Please try again.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+</body>
+</html>
